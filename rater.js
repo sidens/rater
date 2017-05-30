@@ -2,7 +2,7 @@ $(function() {
 var resultsmap = {};
   $("#search").submit(function(event) {
     event.preventDefault();
-    // event.( "#rest_grades" ).empty();
+    $( "#rest_grades" ).empty();
     
     var search = $("#search .query").val();
 
