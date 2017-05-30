@@ -1,6 +1,7 @@
 $(function() {
 var resultsmap = {};
 var ratings = ["http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/excellent_50.gif", "http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/good_50.gif", "http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/okay_50.gif", "http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/needstoimprove_50.gif"];
+
   $("#search").submit(function(event) {
     event.preventDefault();
     $( "#rest_grades" ).empty();
@@ -36,7 +37,7 @@ var ratings = ["http://www.kingcounty.gov/~/media/depts/health/environmental-hea
           console.log("map entry:");
           console.log(result.name);
           // console.log("index:" + idx);
-          $( "#rest_grades" ).append( "<span>Name: "+result.name+"</span>&nbsp;<span>Rating: "+result.grade+"</span>&nbsp;<img src=\""+ratings[result.grade-1]+"\" /><br/>");
+          $( "#rest_grades" ).append( "<span>Name: "+result.name+"</span>&nbsp;<span>Rating: <img src=\""+ratings[result.grade-1]+"\" /></span><br/>");
         });
     });
     // }).done(function(data) {
