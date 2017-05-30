@@ -3,6 +3,7 @@ var resultsmap = {};
   $("#search").submit(function(event) {
     event.preventDefault();
     $( "#rest_grades" ).empty();
+    resultsmap = {};
     
     var search = $("#search .query").val();
 
