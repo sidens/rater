@@ -1,8 +1,8 @@
 README
 _______
 
-To do:
+Todos:
  - Add x to clear search field no rating handling
- - Geolocation for city
- - Addresses
+ - Addresses 
+ - Rating scale for each city
  - Existing spec: https://www.yelp.com/healthscores
