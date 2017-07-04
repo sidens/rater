@@ -11,8 +11,11 @@ var regions =
     "business_id", //dataset value for business id
     "grade", //dataset value for grade
     "IS NOT NULL", //where params
-    "", //scale
-    {1:"http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/excellent_50.gif", 2:"http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/good_50.gif", 3:"http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/okay_50.gif", 4:"http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/needstoimprove_50.gif"}
+    {1:"http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/excellent_50.gif", 2:"http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/good_50.gif", 3:"http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/okay_50.gif", 4:"http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/needstoimprove_50.gif"}, //rating images
+    "http://www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/~/media/depts/health/environmental-health/images/food-safety/food-safety-ratings-emoji.ashx", //scale image
+    "http://www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/food-safety-rating.aspx", //more details from authority
+    "https://data.kingcounty.gov/Health/Food-Establishment-Inspection-Data/f29f-zza5" //attribution
+
   ],
   
   NYC:
@@ -22,11 +25,12 @@ var regions =
     "CAMIS", //dataset value for business id
     "GRADE", //dataset value for grade
     "IS NOT NULL", //where params
-    "", //scale
-    {A:"img/NYC/a.png", B:"img/NYC/b.png", C:"img/NYC/c.png", P:"img/NYC/p.png"}
+    {A:"img/NYC/a.png", B:"img/NYC/b.png", C:"img/NYC/c.png", P:"img/NYC/p.png"}, //rating images
+    "img/NYC/nyc-scale.png", //scale image
+    "https://www1.nyc.gov/assets/doh/downloads/pdf/rii/inspection-cycle-overview.pdf", //more details from authority
+    "https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j" //attribution
   ]
 };
-//var ratings = ["http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/excellent_50.gif", "http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/good_50.gif", "http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/okay_50.gif", "http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/needstoimprove_50.gif"];
 
 // Excute this function when form is submitted
   $("#search").submit(function(event) {
@@ -34,6 +38,7 @@ var regions =
     event.preventDefault();
     resultsmap = {};
     $( "#rest_grades" ).empty();
+    $( "#scale" ).empty();
     
     //Find search parameters
     var search = $("#search .query").val();
@@ -68,7 +73,15 @@ var regions =
         var namefield = userregion[1];
         var businessidfield = userregion[2];
         var gradefield = userregion[3];
-        var ratings = userregion[6];
+        var ratings = userregion[5];
+        var scale = userregion[6];
+        var scaledetails = userregion[7];
+        var attribution = userregion[8];
+
+        //setup scale
+        $( "#scale" ).append( "<a id=\"ratingdetails\" href=\""+scaledetails+"\" target=\"_blank\"><h2>"+region+"'s Rating Scale</h2></a><br/><span id=\"scale\"><img width=80% src=\""+scale+"\" /></span><br/>");
+        $( "#scale" ).append( "<a id=\"attribution\" href=\""+attribution+"\" target=\"_blank\">Open Data Source</a><br/>");
+
 
         //console.log(namefield);  
 
@@ -81,7 +94,7 @@ var regions =
           var grade = listing[gradefield];
           var businessid = listing[businessidfield];
           
-          console.log(name);
+         //console.log(name);
 
           //add Businesses to the results map
           resultsmap[businessid] = {name, grade};
@@ -106,78 +119,5 @@ var regions =
         //$( "#rest_grades" ).append( "<span>Name: "+result.name+"</span>&nbsp;<span>Rating: "+result.grade+"</span><br/>");
         });
     });
-    // }).done(function(data) {
-    //   alert("Name: " + search + " \n Retrieved " + data.length + " records from the dataset!");
-    //   console.log(data);
-    // });
   });
 });
-
-/*
-      $.ajax({
-        url: "https://data.sfgov.org/resource/6a9r-agq8.json",
-        type: "GET",
-        data: {
-          "status" : "APPROVED",
-          "$where": "expirationdate > '" + (new Date()).toISOString().replace(/Z/, '') + "'" 
-            + " AND within_circle(location, "
-            + pos.coords.latitude + ", "
-            + pos.coords.longitude + ", 500)",
-          "$q": search,
-          "$select": "*, distance_in_meters(location, 'POINT(" + pos.coords.longitude + " " + pos.coords.latitude + ")') AS range",
-          "$order" : "range",
-          "$limit" : 5,
-          "$$app_token": "CGxaHQoQlgQSev4zyUh5aR5J3"
-        }
-      }).done(function(listings
-) {
-        $.each(listings
-, function(idx, listing) {
-          // Fetch the nearest trees to each listing
-          $.ajax({
-            url: "https://data.sfgov.org/resource/2zah-tuvt.json",
-            type: "GET",
-            data: {
-              "$select": "min(distance_in_meters(location, 'POINT(" + listing.location.coordinates.join(" ") + ")')) as distance",
-              "$$app_token": "CGxaHQoQlgQSev4zyUh5aR5J3"
-            },
-          }).done(function(closest_tree) {
-            // Add a marker for the location of the food listing
-            var marker = new google.maps.Marker({
-              position: new google.maps.LatLng(listing.location.coordinates[1],
-                            listing.location.coordinates[0]),
-              map: map,
-              animation: google.maps.Animation.DROP,
-              icon: "./img/foodlisting.png",
-              title: listing.applicant,
-              optimized: false
-            });
-
-            // Add an InfoWindow with details about the listing
-            var info_window = new google.maps.InfoWindow({
-              content: '<div class="info-window">'
-                + '<h4>' + listing.applicant + '</h4>'
-                + '<h5>' + Math.round(parseFloat(listing.range)) + ' meters away.</h5>'
-                + '<p>' + listing.fooditems + '</p>'
-                + '<p>Nearest tree is within <em>' + Math.round(parseFloat(closest_tree[0].distance)) + ' meters</em>.</p>'
-                + '</div>'
-            });
-            google.maps.event.addListener(marker, 'click', function() {
-              info_window.open(map, marker);
-            });
-
-            // Add a circle to show how far you'd have to walk for a tree
-            var circle = new google.maps.Circle({
-              strokeOpacity: 0.0,
-              fillColor: "#00FF00",
-              fillOpacity: 0.2,
-              map: map,
-              radius: parseFloat(closest_tree[0].distance),
-              center: new google.maps.LatLng(listing.location.coordinates[1],
-                  listing.location.coordinates[0])
-            });
-          });
-        });
-      });
-    })
-    */
