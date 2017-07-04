@@ -1,4 +1,10 @@
 $(function() {
+
+//Check localstorage to see if city has been set previously
+if(localStorage.getItem("city")){
+ $("#city").val(localStorage.getItem("city"))
+}
+
 //Create map of results to be returned from query
 var resultsmap = {};
 //Create regions to pick from
@@ -32,12 +38,6 @@ var regions =
   ]
 };
 
-//Geolocation
-$.getJSON('https://geoip-db.com/json/geoip.php?jsonp=?') 
-         .done (function(location) {
-            $('#citygeo').html(location.city);            
-         });
-
 // Excute this function when form is submitted
   $("#search").submit(function(event) {
     //Prevent default submit, clear list in UI, and empty results map
@@ -49,6 +49,10 @@ $.getJSON('https://geoip-db.com/json/geoip.php?jsonp=?')
     //Find search parameters
     var search = $("#search .query").val();
     var region = $("#search #city").val();
+
+    //Set city in localstorage for next time
+    localStorage.setItem("city", region); 
+
     //console.log("region: "+region);
 
     //Pick region for data based on user input
