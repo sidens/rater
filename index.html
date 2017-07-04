@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../favicon.ico">
 
-    <title>Restauraunt Rater</title>
+    <title>Restaurant Rater</title>
 
     <!-- Bootstrap core CSS -->
     <link href="dist/css/bootstrap.min.css" rel="stylesheet">
@@ -41,6 +41,10 @@
             <p class="lead">
               <form id="search" class="input-group" method="POST">
               <input name="q" type="text" class="query form-control" placeholder="Restaurant Name Here" />
+              <select name="city" id="city">
+                <option value="Seattle">Seattle</option>
+                <option value="NYC">New York City</option>
+              </select>
               <button type="submit" class="btn btn-primary">Submit</button>
               </form>
             </p>
