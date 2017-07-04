@@ -1,8 +1,7 @@
-README
-_______
+#README
 
 To do:
- - Add x to clear search field no rating handling
- - Geolocation for city
- - Addresses
- - Existing spec: https://www.yelp.com/healthscores
+ 1. Add x to clear search field no rating handling
+ 2. Geolocation for city
+ 3. Addresses
+ 4. Existing spec: https://www.yelp.com/healthscores

@@ -25,12 +25,23 @@ var regions =
     "CAMIS", //dataset value for business id
     "GRADE", //dataset value for grade
     "IS NOT NULL", //where params
-    {A:"img/NYC/a.png", B:"img/NYC/b.png", C:"img/NYC/c.png", P:"img/NYC/p.png"}, //rating images
+    {"A":"img/NYC/a.png", "B":"img/NYC/b.png", "C":"img/NYC/c.png", "P":"img/NYC/p.png", "Z":"img/NYC/p.png", "Not Yet Graded":"img/NYC/notyetrated.png"}, //rating images
     "img/NYC/nyc-scale.png", //scale image
     "https://www1.nyc.gov/assets/doh/downloads/pdf/rii/inspection-cycle-overview.pdf", //more details from authority
     "https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j" //attribution
   ]
 };
+
+//Geolocation
+$.getJSON('https://geoip-db.com/json/geoip.php?jsonp=?') 
+         .done (function(location) {
+            $('#country').html(location.country_name);
+            $('#state').html(location.state);
+            $('#citygeo').html(location.city);
+            $('#latitude').html(location.latitude);
+            $('#longitude').html(location.longitude);
+            $('#ip').html(location.IPv4);               
+         });
 
 // Excute this function when form is submitted
   $("#search").submit(function(event) {
