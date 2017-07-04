@@ -106,8 +106,8 @@ var regions =
         var addressfield = userregion[9];
 
         //setup scale
-        $( "#scale" ).append( "<a id=\"ratingdetails\" href=\""+scaledetails+"\" target=\"_blank\"><h2>"+region+"'s Rating Scale</h2></a><br/><span id=\"scale\"><img width=80% src=\""+scale+"\" /></span><br/>");
-        $( "#scale" ).append( "<a id=\"attribution\" href=\""+attribution+"\" target=\"_blank\">Open Data Source</a><br/>");
+        $( "#scale" ).append( "<div id=\"ratingdetails\"><a href=\""+scaledetails+"\" target=\"_blank\"><h2>"+region+"'s Rating Scale</h2></a><br/><span id=\"scale\"><img width=80% src=\""+scale+"\" /></span></div>");
+        $( "#scale" ).append( "<div id=\"attribution\"><a href=\""+attribution+"\" target=\"_blank\">Open Data Source</a></div><br/>");
 
         //setup table
         $( "#rest_grades"  ).append( "<table id=\"resultslist\" align=\"center\"><thead><tr><th>Name</th><th>Address</th><th>Rating</th></tr></thead><tbody>" );
