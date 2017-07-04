@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../favicon.ico">
+    <link rel="icon" href="favicon.ico">
 
     <title>Restaurant Rater</title>
 
@@ -42,15 +42,18 @@
               <form id="search" class="input-group" method="POST">
               <input name="q" type="text" class="query form-control" placeholder="Restaurant Name Here" />
               <select name="city" id="city">
-                <option value="Seattle">Seattle</option>
+                <option value="SEA">Seattle</option>
                 <option value="NYC">New York City</option>
+                <!-- <option value="SFO">San Francisco</option> -->
               </select>
               <button type="submit" class="btn btn-primary">Submit</button>
               </form>
             </p>
           </div>
-          <div class="lead" id="rest_grades"></div>
-          <div class="lead" id="scale"></div>     
+          <div class="lead" id="results_wrapper" style="display: none;">
+            <div class="lead" id="rest_grades"></div>
+            <div class="lead" id="scale"></div>
+          </div>
           <div class="mastfoot">
             <div class="inner">
               <p>*It's very likely that your food does NOT have poop in it.</p>

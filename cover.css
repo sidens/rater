@@ -41,6 +41,23 @@ body {
   margin-top: 60px;
 }
 
+#results_wrapper{
+  overflow-x:auto;
+  background-color: #583e2e;
+}
+
+#rest_grades th {
+    text-align: center;
+    /*padding:5px;*/
+}
+
+#rest_grades td {
+    text-align: center;
+    padding:15px;
+}
+
+
+
 /* Extra markup and styles for table-esque vertical and horizontal centering */
 .site-wrapper {
   display: table;
