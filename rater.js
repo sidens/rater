@@ -35,12 +35,7 @@ var regions =
 //Geolocation
 $.getJSON('https://geoip-db.com/json/geoip.php?jsonp=?') 
          .done (function(location) {
-            $('#country').html(location.country_name);
-            $('#state').html(location.state);
-            $('#citygeo').html(location.city);
-            $('#latitude').html(location.latitude);
-            $('#longitude').html(location.longitude);
-            $('#ip').html(location.IPv4);               
+            $('#citygeo').html(location.city);            
          });
 
 // Excute this function when form is submitted
