@@ -1,5 +1,9 @@
 $(function() {
 
+$body = $("body");
+
+
+
 //Check localstorage to see if city has been set previously
 if(localStorage.getItem("city")){
  $("#city").val(localStorage.getItem("city"))
@@ -21,7 +25,8 @@ var regions =
     "http://www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/~/media/depts/health/environmental-health/images/food-safety/food-safety-ratings-emoji.ashx", //scale image
     "http://www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/food-safety-rating.aspx", //more details from authority
     "https://data.kingcounty.gov/Health/Food-Establishment-Inspection-Data/f29f-zza5", //attribution
-    "ADDRESS" //dataset value for street number & address
+    "ADDRESS", //dataset value for street number & address
+    "Seattle" //familiar region name
 
   ],
   
@@ -36,7 +41,8 @@ var regions =
     "img/NYC/nyc-scale.png", //scale image
     "https://www1.nyc.gov/assets/doh/downloads/pdf/rii/inspection-cycle-overview.pdf", //more details from authority
     "https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j", //attribution
-    "street" //dataset value for address
+    "street", //dataset value for address
+    "New York City"
   ]
   // ,
   // SFO:
@@ -53,8 +59,11 @@ var regions =
   // ],
 };
 
+
+
 // Excute this function when form is submitted
   $("#search").submit(function(event) {
+     $('#loading').show();
     //Prevent default submit, clear list in UI, and empty results map
     event.preventDefault();
     resultsmap = {};
@@ -79,9 +88,9 @@ var regions =
 
     //Build query parameters
     var selectquery = userregion[1]+", "+userregion[2]+", "+userregion[3]+", "+userregion[9];
-    console.log(selectquery);
+    // console.log(selectquery);
     var wherequery = userregion[3]+" "+userregion[4];
-    console.log(wherequery);
+    // console.log(wherequery);
 
 
     $.ajax({
@@ -95,6 +104,9 @@ var regions =
       "$$app_token" : "CE7uCoAw5PG2KLRXRhRTCaIaM"
     }
     }).done(function(listings) {
+        //Hide Loading Div
+        $('#loading').hide();
+
         //Set fieldnames for each dataset
         var namefield = userregion[1];
         var businessidfield = userregion[2];
@@ -104,9 +116,10 @@ var regions =
         var scaledetails = userregion[7];
         var attribution = userregion[8];
         var addressfield = userregion[9];
+        var regionname = userregion[10];
 
         //setup scale
-        $( "#scale" ).append( "<div id=\"ratingdetails\"><a href=\""+scaledetails+"\" target=\"_blank\"><h2>"+region+"'s Rating Scale</h2></a><br/><span id=\"scale\"><img width=80% src=\""+scale+"\" /></span></div>");
+        $( "#scale" ).append( "<div id=\"ratingdetails\"><a href=\""+scaledetails+"\" target=\"_blank\"><h2>"+regionname+"'s Rating Scale</h2></a><br/><span id=\"scale\"><img width=80% src=\""+scale+"\" /></span></div>");
         $( "#scale" ).append( "<div id=\"attribution\"><a href=\""+attribution+"\" target=\"_blank\">Open Data Source</a></div><br/>");
 
         //setup table
@@ -114,13 +127,17 @@ var regions =
         
         // console.log(namefield);  
 
-        console.log("Listings.length:"+listings.length);  
+        // console.log("Listings.length:"+listings.length);  
+
+        if (listings.length === 0) {
+          $('#resultslist').html("<br/>No Results");
+        }
 
         $.each(listings, function(idx, listing) {
           // Fetch each resturaunt listing  
           
           //set universal params based on listing entries
-          console.log("Listing: "+JSON.stringify(listing));  
+          // console.log("Listing: "+JSON.stringify(listing));  
           var name = listing[namefield];
           var grade = listing[gradefield];
           var businessid = listing[businessidfield];
