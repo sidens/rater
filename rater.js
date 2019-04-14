@@ -42,21 +42,23 @@ var regions =
     "https://www1.nyc.gov/assets/doh/downloads/pdf/rii/inspection-cycle-overview.pdf", //more details from authority
     "https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j", //attribution
     "street", //dataset value for address
-    "New York City"
+    "New York City" //familiar region name
   ]
-  // ,
-  // SFO:
-  // [
-  //   "https://data.sfgov.org/resource/sipz-fjte.json", //url
-  //   "business_name", //dataset value for name
-  //   "business_id", //dataset value for business id
-  //   "inspection_score", //dataset value for grade
-  //   "IS NOT NULL", //where params
-  //   {1:"http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/excellent_50.gif", 2:"http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/good_50.gif", 3:"http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/okay_50.gif", 4:"http://www.kingcounty.gov/~/media/depts/health/environmental-health/images/food-safety/inspections/needstoimprove_50.gif"}, //rating images
-  //   "http://www.kingcounty.gov/depts/health/environmental-health/food-safety/inspection-system/~/media/depts/health/environmental-health/images/food-safety/food-safety-ratings-emoji.ashx", //scale image
-  //   "https://www.sfdph.org/dph/EH/Food/Score/", //more details from authority
-  //   "https://data.sfgov.org/Health-and-Social-Services/Restaurant-Scores-LIVES-Standard/pyih-qa8i" //attribution
-  // ],
+  ,
+  SFO:
+  [
+    "https://data.sfgov.org/resource/sipz-fjte.json", //url
+    "business_name", //dataset value for name
+    "business_id", //dataset value for business id
+    "inspection_score", //dataset value for grade
+    "IS NOT NULL", //where params
+    {}, //rating images
+    "0-100", //scale 
+    "https://www.sfdph.org/dph/EH/Food/Score/", //more details from authority
+    "https://data.sfgov.org/Health-and-Social-Services/Restaurant-Scores-LIVES-Standard/pyih-qa8i", //attribution
+    "business_address", //dataset value for address
+    "San Francisco" //familiar region name
+  ],
 };
 
 
@@ -88,9 +90,9 @@ var regions =
 
     //Build query parameters
     var selectquery = userregion[1]+", "+userregion[2]+", "+userregion[3]+", "+userregion[9];
-    // console.log(selectquery);
+    console.log(selectquery);
     var wherequery = userregion[3]+" "+userregion[4];
-    // console.log(wherequery);
+    console.log(wherequery);
 
 
     $.ajax({
@@ -118,9 +120,21 @@ var regions =
         var addressfield = userregion[9];
         var regionname = userregion[10];
 
-        //setup scale
-        $( "#scale" ).append( "<div id=\"ratingdetails\"><a href=\""+scaledetails+"\" target=\"_blank\"><h2>"+regionname+"'s Rating Scale</h2></a><br/><span id=\"scale\"><img width=80% src=\""+scale+"\" /></span></div>");
-        $( "#scale" ).append( "<div id=\"attribution\"><a href=\""+attribution+"\" target=\"_blank\">Open Data Source</a></div><br/>");
+        //check if scale is image
+        var str = scale;
+        var res = str.split("."); //split on ".", if present, assume URL
+        console.log("res.length: "+res.length);  
+        if (res.length == 1)
+        {
+          $( "#scale" ).append( "<div id=\"ratingdetails\"><h2>"+regionname+"'s Rating Scale</h2><br/><span id=\"scale\">"+scale+"</span></div>");
+        }
+        else
+        {
+          $( "#scale" ).append( "<div id=\"ratingdetails\"><h2>"+regionname+"'s Rating Scale</h2><br/><span id=\"scale\"><img width=60% src=\""+scale+"\" /></span></div>");
+        }
+
+        //setup scale        
+        $( "#scale" ).append( "<div id=\"attribution\"><a href=\""+scaledetails+"\" target=\"_blank\">More Details</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href=\""+attribution+"\" target=\"_blank\">Open Data Source</a></div><br/>");
 
         //setup table
         $( "#rest_grades"  ).append( "<table id=\"resultslist\" align=\"center\"><thead><tr><th>Name</th><th>Address</th><th>Rating</th></tr></thead><tbody>" );
@@ -150,7 +164,7 @@ var regions =
         });
         // console.log("results map:");
         // console.log(resultsmap);
-        // console.log("Resultsmap.length: "+resultsmap.length);
+        //console.log("Resultsmap.length: "+resultsmap.length);
 
         $.each(resultsmap, function(idx, result) {
            // console.log("map entry:");
@@ -159,9 +173,26 @@ var regions =
 
         //results html, with ratings as key, converting to image
           var resultgrade = result.grade;
-          // console.log("Grade for result: "+resultgrade);
+          var newrow = "";
+          //console.log("Grade for result: "+resultgrade);
           // console.log("Img for result: "+ratings[resultgrade]);
-          var newrow = "<tr><td>"+result.name+"</td><td>"+result.address+"</td><td><img width=50 src=\""+ratings[resultgrade]+"\" /></td>/tr>";
+
+          var urlescapedname = encodeURIComponent(result.name).replace(/%20/g,'+');
+          var urlescapedaddress = encodeURIComponent(result.address).replace(/%20/g,'+');
+          var urlescapedregion = encodeURIComponent(regionname).replace(/%20/g,'+');
+          // console.log("Query Safe URL: "+urlescapedlocation);
+
+          var locationurl = "<a target=\"_blank\" href=\"https://www.google.com/maps/search/?api=1&query="+urlescapedname+"+"+urlescapedaddress+"+"+urlescapedregion+"\">"+result.address+"</a>";
+          if (ratings[resultgrade] == null)
+          {
+             newrow = "<tr><td>"+result.name+"</td><td>"+locationurl+"</td><td>"+result.grade+"</td>/tr>";
+          }
+          else
+          {
+            newrow = "<tr><td>"+result.name+"</td><td>"+locationurl+"</td><td><img width=50 src=\""+ratings[resultgrade]+"\" /></td>/tr>";
+          }
+          
+          
           $("#resultslist tbody").append(newrow);
 
           //$( "#rest_grades" ).append( "<tr><td>"+result.name+"</td><td>"+result.address+"</td><td><img width=50 src=\""+ratings[resultgrade]+"\" /></td>/tr>" );    
