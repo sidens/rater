@@ -56,7 +56,8 @@ body {
 }
 
 #attribution{
-  margin: 20px
+  margin: 20px;
+  font-size: 60%;
 }
 
 #loading {
