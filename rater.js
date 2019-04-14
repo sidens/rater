@@ -185,7 +185,7 @@ var regions =
 
           //TODO Title Case Name Results
           //console.log("titlecasedresultname: "+result.name);
-          var titlecasedresultname = toTitleCase(result.name);
+          var titlecasedresultname = result.name;
 
           //console.log("Grade for result: "+resultgrade);
           // console.log("Img for result: "+ratings[resultgrade]);
