@@ -131,9 +131,9 @@ var regions =
           //console.log(JSON.stringify(resultsmap[businessid]));  
 
         });
-        // console.log("results map:");
-        // console.log(resultsmap);
-        // console.log(resultsmap.length);
+        console.log("results map:");
+        console.log(resultsmap);
+        console.log(resultsmap.length);
 
         $.each(resultsmap, function(idx, result) {
            // console.log("map entry:");
