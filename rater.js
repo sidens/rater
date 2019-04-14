@@ -2,6 +2,14 @@ $(function() {
 
 $body = $("body");
 
+// //Attempt at title casing names
+// function toTitleCase(str)
+// {
+//   var lcStr = str.toLowerCase();
+//   return lcStr.replace(/(?:^|\s)\w/g, function(match) {
+//       return match.toUpperCase();
+//   });
+// };
 
 
 //Check localstorage to see if city has been set previously
@@ -90,9 +98,9 @@ var regions =
 
     //Build query parameters
     var selectquery = userregion[1]+", "+userregion[2]+", "+userregion[3]+", "+userregion[9];
-    console.log(selectquery);
+    // console.log(selectquery);
     var wherequery = userregion[3]+" "+userregion[4];
-    console.log(wherequery);
+    // console.log(wherequery);
 
 
     $.ajax({
@@ -123,7 +131,7 @@ var regions =
         //check if scale is image
         var str = scale;
         var res = str.split("."); //split on ".", if present, assume URL
-        console.log("res.length: "+res.length);  
+        // console.log("res.length: "+res.length);  
         if (res.length == 1)
         {
           $( "#scale" ).append( "<div id=\"ratingdetails\"><h2>"+regionname+"'s Rating Scale</h2><br/><span id=\"scale\">"+scale+"</span></div>");
@@ -174,10 +182,15 @@ var regions =
         //results html, with ratings as key, converting to image
           var resultgrade = result.grade;
           var newrow = "";
+
+          //TODO Title Case Name Results
+          //console.log("titlecasedresultname: "+result.name);
+          var titlecasedresultname = toTitleCase(result.name);
+
           //console.log("Grade for result: "+resultgrade);
           // console.log("Img for result: "+ratings[resultgrade]);
 
-          var urlescapedname = encodeURIComponent(result.name).replace(/%20/g,'+');
+          var urlescapedname = encodeURIComponent(titlecasedresultname).replace(/%20/g,'+');
           var urlescapedaddress = encodeURIComponent(result.address).replace(/%20/g,'+');
           var urlescapedregion = encodeURIComponent(regionname).replace(/%20/g,'+');
           // console.log("Query Safe URL: "+urlescapedlocation);
@@ -185,11 +198,11 @@ var regions =
           var locationurl = "<a target=\"_blank\" href=\"https://www.google.com/maps/search/?api=1&query="+urlescapedname+"+"+urlescapedaddress+"+"+urlescapedregion+"\">"+result.address+"</a>";
           if (ratings[resultgrade] == null)
           {
-             newrow = "<tr><td>"+result.name+"</td><td>"+locationurl+"</td><td>"+result.grade+"</td>/tr>";
+             newrow = "<tr><td>"+titlecasedresultname+"</td><td>"+locationurl+"</td><td>"+result.grade+"</td>/tr>";
           }
           else
           {
-            newrow = "<tr><td>"+result.name+"</td><td>"+locationurl+"</td><td><img width=50 src=\""+ratings[resultgrade]+"\" /></td>/tr>";
+            newrow = "<tr><td>"+titlecasedresultname+"</td><td>"+locationurl+"</td><td><img width=50 src=\""+ratings[resultgrade]+"\" /></td>/tr>";
           }
           
           

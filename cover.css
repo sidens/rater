@@ -103,6 +103,10 @@ body {
   padding: 2rem;
 }
 
+.btn-primary{
+  margin-left: 1em;
+}
+
 
 
 /*
@@ -165,6 +169,15 @@ input {
   margin-bottom: 10px;
   display: inline-block;
 }
+
+/*#search input {
+  display: block;
+  margin-bottom: 1em;
+}
+#search select {
+  display: block;
+  margin-bottom: 1em;
+}*/
 
 
 /*
