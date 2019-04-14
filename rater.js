@@ -28,15 +28,15 @@ var regions =
   NYC:
   [
     "https://data.cityofnewyork.us/resource/9w7m-hzhe.json", //url
-    "DBA", //dataset value for name
-    "CAMIS", //dataset value for business id
-    "GRADE", //dataset value for grade
+    "dba", //dataset value for name
+    "camis", //dataset value for business id
+    "grade", //dataset value for grade
     "IS NOT NULL", //where params
     {"A":"img/NYC/a.png", "B":"img/NYC/b.png", "C":"img/NYC/c.png", "P":"img/NYC/p.png", "Z":"img/NYC/p.png", "Not Yet Graded":"img/NYC/notyetrated.png"}, //rating images
     "img/NYC/nyc-scale.png", //scale image
     "https://www1.nyc.gov/assets/doh/downloads/pdf/rii/inspection-cycle-overview.pdf", //more details from authority
     "https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j", //attribution
-    "STREET" //dataset value for address
+    "street" //dataset value for address
   ]
   // ,
   // SFO:
@@ -112,28 +112,28 @@ var regions =
         //setup table
         $( "#rest_grades"  ).append( "<table id=\"resultslist\" align=\"center\"><thead><tr><th>Name</th><th>Address</th><th>Rating</th></tr></thead><tbody>" );
         
-        //console.log(namefield);  
+        // console.log(namefield);  
+
+        console.log("Listings.length:"+listings.length);  
 
         $.each(listings, function(idx, listing) {
           // Fetch each resturaunt listing  
           
           //set universal params based on listing entries
-          // console.log(JSON.stringify(listing));  
+          console.log("Listing: "+JSON.stringify(listing));  
           var name = listing[namefield];
           var grade = listing[gradefield];
           var businessid = listing[businessidfield];
           var address = listing[addressfield];
           
-         //console.log(name);
-
           //add Businesses to the results map
           resultsmap[businessid] = {name, grade, address};
           //console.log(JSON.stringify(resultsmap[businessid]));  
 
         });
-        console.log("results map:");
-        console.log(resultsmap);
-        console.log(resultsmap.length);
+        // console.log("results map:");
+        // console.log(resultsmap);
+        // console.log("Resultsmap.length: "+resultsmap.length);
 
         $.each(resultsmap, function(idx, result) {
            // console.log("map entry:");
