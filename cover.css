@@ -170,6 +170,10 @@ input {
   display: inline-block;
 }
 
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
 /*#search input {
   display: block;
   margin-bottom: 1em;
