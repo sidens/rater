@@ -37,7 +37,6 @@ var regions =
     "Seattle" //familiar region name
 
   ],
-  
   NYC:
   [
     "https://data.cityofnewyork.us/resource/9w7m-hzhe.json", //url
@@ -51,8 +50,7 @@ var regions =
     "https://data.cityofnewyork.us/Health/DOHMH-New-York-City-Restaurant-Inspection-Results/43nn-pn8j", //attribution
     "street", //dataset value for address
     "New York City" //familiar region name
-  ]
-  ,
+  ],
   SFO:
   [
     "https://data.sfgov.org/resource/sipz-fjte.json", //url
@@ -67,6 +65,20 @@ var regions =
     "business_address", //dataset value for address
     "San Francisco" //familiar region name
   ],
+  LAC:
+  [
+    "https://data.lacounty.gov/resource/6ni6-h5kp.json", //url
+    "facility_name", //dataset value for name
+    "facility_id", //dataset value for business id
+    "score", //dataset value for grade
+    "IS NOT NULL", //where params
+    {}, //rating images
+    "0-100", //scale 
+    "http://publichealth.lacounty.gov/eh/AreasofInterest/food.htm", //more details from authority
+    "https://data.lacounty.gov/Health/LOS-ANGELES-COUNTY-RESTAURANT-AND-MARKET-INSPECTIO/6ni6-h5kp", //attribution
+    "facility_address", //dataset value for address
+    "Los Angeles County" //familiar region name
+  ]
 };
 
 
