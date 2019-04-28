@@ -43,6 +43,7 @@ body {
 
 #results_wrapper{
   background-color: #583e2e;
+  margin-top: 10px;
 }
 
 #rest_grades th {
@@ -174,6 +175,12 @@ input[type="search"]::-webkit-search-cancel-button {
     -webkit-appearance: searchfield-cancel-button;
   }
 
+.disclaimer {
+  color: rgba(255,255,255,.7);
+  padding-bottom: 10px;
+
+}
+
 /*#search input {
   display: block;
   margin-bottom: 1em;
@@ -189,6 +196,11 @@ input[type="search"]::-webkit-search-cancel-button {
  */
 
 .mastfoot {
+  color: rgba(255,255,255,.5);
+  font-size: .7em;
+}
+
+.mastfoot a {
   color: rgba(255,255,255,.7);
 }
 
@@ -204,7 +216,7 @@ input[type="search"]::-webkit-search-cancel-button {
     top: 0;
   }
   .mastfoot {
-    /*position: fixed;*/
+    position: fixed;
     bottom: 0;
   }
   /* Start the vertical centering */
