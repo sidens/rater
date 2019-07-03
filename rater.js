@@ -122,7 +122,7 @@ var regions =
       "$select" : selectquery ,
       "$where": wherequery, 
       "$q": search,
-      "$limit" : 50000,
+      "$limit" : 500,
       "$$app_token" : "CE7uCoAw5PG2KLRXRhRTCaIaM"
     }
     }).done(function(listings) {
