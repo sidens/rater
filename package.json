@@ -1,0 +1,30 @@
+{
+  "name": "rater",
+  "version": "1.1.0",
+  "description": "Restaurant health rating app - using Socrata open-data sources",
+  "main": "rater.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sidens/rater-app.git"
+  },
+  "keywords": [
+    "socrata",
+    "gh-pages",
+    "public-health",
+    "open-data"
+  ],
+  "author": "sidens",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sidens/rater-app/issues"
+  },
+  "homepage": "https://github.com/sidens/rater-app#readme"
+}
