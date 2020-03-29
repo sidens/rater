@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <link rel="icon" href="favicon.ico">
 
     <title>Is there poop in it?</title>
@@ -14,17 +15,10 @@
 
     <!-- Custom styles for this template -->
     <link href="cover.css" rel="stylesheet">
-    
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-43640404-3"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-43640404-3');
-    </script>
-    <!-- END Google Analytics -->
-
+    <script>let $ = require('jquery');</script>
+    <script>require('bootstrap');</script>
+    <script>require('popper.js');</script>
+    <script>console.log("We are using node "+process.versions.node +" Chrome "+ process.versions.chrome+" and Electron "+ process.versions.electron)</script>
 
   </head>
 
@@ -63,7 +57,7 @@
                     <option value="SFO">San Francisco, CA</option>
                     <option value="SEA">Seattle, WA</option>
                   </select>
-                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <input type="submit" class="btn btn-primary" id="search-submit" value="Submit"></input>
                 </div>
               </form>
             </p>
@@ -90,14 +84,13 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;} </script>
+    //<!-- normal script imports etc  -->
+        <!-- Socrata Scripts -->
+        <script src="rater.js"></script>
+    <!-- Insert this line after script imports -->
+    <script>if (window.module) module = window.module;</script>
+
     
-    <!-- Socrata Scripts -->
-    <script src="rater.js"></script>
   </body>
 </html>

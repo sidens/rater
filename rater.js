@@ -84,7 +84,7 @@ var regions =
 
 
 // Excute this function when form is submitted
-  $("#search").submit(function(event) {
+  $("#search-submit").click(function(event) {
      $('#loading').show();
     //Prevent default submit, clear list in UI, and empty results map
     event.preventDefault();
